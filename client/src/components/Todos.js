@@ -5,6 +5,7 @@ import axios from 'axios';
 
 export default function Todos() {
     const [todos, setTodos] = useState([]);
+    const todoNameRef = useRef();
 
     useEffect(() => {
         async function fetchTodos() {
@@ -18,8 +19,6 @@ export default function Todos() {
         }
         fetchTodos();
     }, []);
-
-    const todoNameRef = useRef();
 
     function toggleTodo(id) {
         async function updateTodoCompleted() {
