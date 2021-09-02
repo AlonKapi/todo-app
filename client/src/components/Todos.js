@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import TodoList from './TodoList';
 import axios from 'axios';
 
-export default async function Todos() {
+export default function Todos() {
     const [todos, setTodos] = useState([]);
 
     useEffect(() => {
