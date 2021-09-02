@@ -4,7 +4,12 @@ const { v4 } = require('uuid');
 
 router.use(express.json());
 
-const todos = [{data:'clean room', id: v4(), isCompleted: false}, {data:'water the plants', id: v4(), isCompleted: false}];
+let todos = [{data:'clean room', id: v4(), isCompleted: false}, {data:'water the plants', id: v4(), isCompleted: true}];
+
+router.get('/clearcompleted', (req, res) => {
+    todos = todos.filter(todo => !todo.isCompleted);
+    res.send(todos);
+});
 
 router
     .route('/')
@@ -24,14 +29,17 @@ router
         res.send(req.foundTodo);
     })
     .put((req, res) => {
-        const {data} = req.body;
+        const {data, isCompleted} = req.body;
 
-        if (!data) {
-            return res.status(400).send({message:'data is empty.'});
+        if (data) {
+            req.foundTodo.data = data;
         }
 
-        req.foundTodo.data = data;
-        res.send(req.foundTodo);
+        if (isCompleted !== undefined) {
+            req.foundTodo.isCompleted = isCompleted;
+        }
+
+        res.send(todos);
     })
     .delete((req, res) => {
         let indexToRemove;
