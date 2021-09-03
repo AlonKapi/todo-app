@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import TodoList from './TodoList';
 import '../styles/Todos.css';
 import axios from 'axios';
+import { BASE_API_URL } from '../utils/constants';
 
 export default function Todos() {
     const [todos, setTodos] = useState([]);
@@ -10,7 +11,7 @@ export default function Todos() {
     useEffect(() => {
         async function fetchTodos() {
             try {
-                const res = await axios.get('http://localhost:3001/todos');
+                const res = await axios.get(`${BASE_API_URL}/todos`);
                 console.log(res.data);
                 setTodos(res.data);
             } catch (error) {
@@ -29,7 +30,7 @@ export default function Todos() {
                     return;
                 }
                 
-                const res = await axios.put(`http://localhost:3001/todos/${id}`, {isCompleted: !todo.isCompleted});
+                const res = await axios.put(`${BASE_API_URL}/todos/${id}`, {isCompleted: !todo.isCompleted});
                 console.log(res.data);
                 setTodos(res.data);
             } catch (error) {
@@ -48,7 +49,7 @@ export default function Todos() {
 
         async function addNewTodo() {
             try {
-                const res = await axios.post('http://localhost:3001/todos/', {data: newTodo});
+                const res = await axios.post(`${BASE_API_URL}/todos/`, {data: newTodo});
                 const createdTodo = res.data;
                 console.log(res.data);
 
@@ -65,7 +66,7 @@ export default function Todos() {
     function handleClearCompleted(e) {
         async function clearCompleted() {
             try {
-                const res = await axios.get('http://localhost:3001/todos/clearcompleted');
+                const res = await axios.get(`${BASE_API_URL}/todos/clearcompleted`);
                 console.log(res.data);
                 setTodos(res.data);
             } catch (error) {

@@ -4,8 +4,9 @@ const express = require('express');
 const app = express();
 
 const cors = require('cors');
+const ORIGIN = process.env.ORIGIN || 'http://localhost:3000';
 app.use(cors({
-    origin: 'http://localhost:3000'
+    origin: ORIGIN
 }));
 
 // Have Node serve the files for our built React app
